@@ -6,7 +6,6 @@
             <parameter name="maxFileLength"><![CDATA[800]]></parameter>
         </parameters>
     </check>
-    <check level="error" class="org.scalastyle.file.HeaderMatchesChecker" enabled="false"/>
     <check level="error" class="org.scalastyle.scalariform.SpacesAfterPlusChecker" enabled="true"/>
     <check level="error" class="org.scalastyle.file.WhitespaceEndOfLineChecker" enabled="true"/>
     <check level="error" class="org.scalastyle.scalariform.SpacesBeforePlusChecker" enabled="true"/>
@@ -31,7 +30,7 @@
             <parameter name="regex"><![CDATA[^[a-z][A-Za-z]*$]]></parameter>
         </parameters>
     </check>
-    <check enabled="true" class="org.scalastyle.scalariform.ClassTypeParameterChecker" level="warning">
+    <check level="warning" class="org.scalastyle.scalariform.ClassTypeParameterChecker" enabled="true">
         <parameters>
             <parameter name="regex">^[A-Z_]$</parameter>
         </parameters>
@@ -66,7 +65,7 @@
     <check level="error" class="org.scalastyle.scalariform.NoFinalizeChecker" enabled="true"/>
     <check level="error" class="org.scalastyle.scalariform.CovariantEqualsChecker" enabled="true"/>
     <check level="error" class="org.scalastyle.scalariform.StructuralTypeChecker" enabled="true"/>
-    <check level="error" class="org.scalastyle.file.RegexChecker" enabled="true">
+    <check level="warning" class="org.scalastyle.file.RegexChecker" enabled="true">
         <parameters>
             <parameter name="regex"><![CDATA[println]]></parameter>
         </parameters>
@@ -105,6 +104,4 @@
         </parameters>
     </check>
     <check level="warning" class="org.scalastyle.scalariform.PublicMethodsHaveTypeChecker" enabled="true"/>
-    <check level="error" class="org.scalastyle.file.NewLineAtEofChecker" enabled="false"/>
-    <check level="error" class="org.scalastyle.file.NoNewLineAtEofChecker" enabled="false"/>
 </scalastyle>
