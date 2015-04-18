@@ -1,7 +1,6 @@
 package com.ketilovre.akka
 
 import akka.actor.ActorSystem
-import akka.event.{Logging, LoggingAdapter}
 import akka.stream.ActorFlowMaterializer
 import com.softwaremill.macwire.Macwire
 

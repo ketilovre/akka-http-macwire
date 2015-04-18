@@ -1,11 +1,20 @@
 package com.ketilovre.server
 
-import com.ketilovre.akka.AkkaModule
+import akka.actor.ActorSystem
+import akka.stream.ActorFlowMaterializer
+import com.ketilovre.config.ConfigModule
 import com.ketilovre.server.routes.RouteModule
 import com.softwaremill.macwire.Macwire
 
-trait ServerModule extends Macwire with RouteModule {
-  self: AkkaModule =>
+import scala.concurrent.ExecutionContext
+
+trait ServerModule extends Macwire with RouteModule with ConfigModule {
+
+  def system: ActorSystem
+
+  def dispatcher: ExecutionContext
+
+  def materializer: ActorFlowMaterializer
 
   lazy val server: Server = wire[Server]
 

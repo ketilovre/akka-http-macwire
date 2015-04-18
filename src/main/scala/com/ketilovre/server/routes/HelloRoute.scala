@@ -1,6 +1,7 @@
 package com.ketilovre.server.routes
 
 import akka.http.server.Route
+import com.ketilovre.server.PartialRoute
 import com.ketilovre.server.handlers.HelloHandler
 
 import scala.concurrent.ExecutionContext
@@ -10,7 +11,9 @@ class HelloRoute(helloHandler: HelloHandler)(implicit ec: ExecutionContext) exte
   def route: Route = {
     get {
       path("") {
-        complete(helloHandler.hello)
+        parameter("name") { name =>
+          complete(helloHandler.hello(name))
+        }
       }
     }
   }

@@ -1,4 +1,4 @@
-package com.ketilovre.server.routes
+package com.ketilovre.server
 
 import akka.http.server.{Directives, Route}
 
