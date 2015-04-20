@@ -1,18 +1,16 @@
 package com.ketilovre.server
 
 import akka.actor.ActorSystem
-import akka.http.model.headers.CacheDirectives.`max-age`
-import akka.http.model.headers.`Cache-Control`
 import akka.http.model.{HttpRequest, HttpResponse}
-import akka.http.server.{Directives, Route, RoutingSettings, RoutingSetup}
+import akka.http.server.Directives._
+import akka.http.server.{Route, RoutingSettings, RoutingSetup}
 import akka.stream.ActorFlowMaterializer
 import akka.stream.scaladsl.Flow
-import com.ketilovre.server.directives.AccessLog
 
 import scala.concurrent.ExecutionContext
 
-class Api(partialRoutes: Seq[PartialRoute])
-         (implicit sys: ActorSystem, mat: ActorFlowMaterializer, ec: ExecutionContext) extends Directives {
+class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper])
+         (implicit sys: ActorSystem, mat: ActorFlowMaterializer, ec: ExecutionContext) {
 
   implicit private val routingSettings = RoutingSettings.default
 
@@ -21,26 +19,8 @@ class Api(partialRoutes: Seq[PartialRoute])
   lazy val routeFlow: Flow[HttpRequest, HttpResponse, Unit] = Route.handlerFlow(route)
 
   lazy val route: Route = {
-    AccessLog() {
-      globalHeaders {
-        encoding {
-          concatenatedRoutes
-        }
-      }
-    }
-  }
-
-  private def globalHeaders(route: Route): Route = {
-    respondWithHeader(`Cache-Control`(`max-age`(1))) {
-      route
-    }
-  }
-
-  private def encoding(route: Route): Route = {
-    decodeRequest {
-      encodeResponse {
-        route
-      }
+    concatenatedWrappers {
+      concatenatedRoutes
     }
   }
 
@@ -48,6 +28,13 @@ class Api(partialRoutes: Seq[PartialRoute])
     case Nil     => complete("Please add some routes")
     case x :: xs => xs.foldLeft(x.route) { (builder, partial) =>
       builder ~ partial.route
+    }
+  }
+
+  private val concatenatedWrappers: Route => Route = wrappers match {
+    case Nil     => Route.apply
+    case x :: xs => xs.foldLeft(x.wrap _) { (builder, wrapper) =>
+      builder.compose(wrapper.wrap)
     }
   }
 }

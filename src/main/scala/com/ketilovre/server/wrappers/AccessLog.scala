@@ -1,4 +1,4 @@
-package com.ketilovre.server.directives
+package com.ketilovre.server.wrappers
 
 import akka.http.model.StatusCodes._
 import akka.http.model._
@@ -6,9 +6,10 @@ import akka.http.server.Directives._
 import akka.http.server.RouteResult.{Complete, Rejected}
 import akka.http.server._
 import akka.http.server.directives.LoggingMagnet
+import com.ketilovre.server.Wrapper
 import org.slf4j.LoggerFactory
 
-object AccessLog {
+class AccessLog extends Wrapper {
 
   private val log = LoggerFactory.getLogger("access")
 
@@ -18,8 +19,10 @@ object AccessLog {
     case _                                => BadRequest
   }
 
-  def apply(): Directive0 = {
-    logRequestResult(LoggingMagnet(_ => logAccess(System.currentTimeMillis())))
+  def wrap(route: Route): Route = {
+    logRequestResult(LoggingMagnet(_ => logAccess(System.currentTimeMillis()))) {
+      route
+    }
   }
 
   private def logAccess(start: Long)(req: HttpRequest): RouteResult => Unit = {
