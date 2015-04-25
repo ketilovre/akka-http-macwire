@@ -1,7 +1,7 @@
 package server.wrappers
 
-import akka.http.model.headers.RawHeader
-import akka.http.server.Directives._
+import akka.http.scaladsl.model.headers.RawHeader
+import akka.http.scaladsl.server.Directives._
 import com.ketilovre.server.wrappers.SecurityHeaders
 import helpers.RouteSpec
 

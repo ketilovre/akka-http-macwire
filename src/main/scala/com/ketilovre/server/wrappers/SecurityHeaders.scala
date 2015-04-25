@@ -1,9 +1,9 @@
 package com.ketilovre.server.wrappers
 
-import akka.http.model.HttpHeader
-import akka.http.model.headers.RawHeader
-import akka.http.server.Directives._
-import akka.http.server.Route
+import akka.http.scaladsl.model.HttpHeader
+import akka.http.scaladsl.model.headers.RawHeader
+import akka.http.scaladsl.server.Directives.respondWithDefaultHeaders
+import akka.http.scaladsl.server.Route
 import com.ketilovre.server.Wrapper
 
 class SecurityHeaders extends Wrapper {

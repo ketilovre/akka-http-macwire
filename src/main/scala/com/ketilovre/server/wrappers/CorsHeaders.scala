@@ -1,23 +1,23 @@
 package com.ketilovre.server.wrappers
 
-import akka.http.model.HttpHeader
-import akka.http.model.StatusCodes.OK
-import akka.http.model.headers._
-import akka.http.server.Directives._
-import akka.http.server.Route
+import akka.http.scaladsl.model.HttpHeader
+import akka.http.scaladsl.model.StatusCodes.OK
+import akka.http.scaladsl.model.headers.RawHeader
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
 import com.ketilovre.server.Wrapper
 
 class CORSHeaders extends Wrapper {
-
-  private val maxAge = 3600L
 
   private val accessControlRequestMethod = "Access-Control-Request-Method"
 
   private val accessControlRequestHeaders = "Access-Control-Request-Headers"
 
+  private val maxAgeHeader = RawHeader("Access-Control-Max-Age", "3600")
+
   private val standardHeaders: List[HttpHeader] = List(
-    `Access-Control-Allow-Origin`.apply(HttpOriginRange.*): HttpHeader,
-    `Access-Control-Allow-Credentials`(allow = true)
+    RawHeader("Access-Control-Allow-Origin", "*"),
+    RawHeader("Access-Control-Allow-Credentials", "true")
   )
 
   def wrap(route: Route): Route = {
@@ -27,7 +27,7 @@ class CORSHeaders extends Wrapper {
           val methods = requestMethod.map(RawHeader(accessControlRequestMethod, _))
           val headers = requestHeaders.map(RawHeader(accessControlRequestHeaders, _))
           respondWithDefaultHeaders(concatHeaders(methods, headers): _*) {
-            respondWithDefaultHeader(`Access-Control-Max-Age`(maxAge)) {
+            respondWithDefaultHeader(maxAgeHeader) {
               complete(OK)
             }
           }

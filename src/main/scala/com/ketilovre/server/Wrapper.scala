@@ -1,6 +1,6 @@
 package com.ketilovre.server
 
-import akka.http.server.Route
+import akka.http.scaladsl.server.Route
 
 trait Wrapper {
 

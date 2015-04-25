@@ -1,11 +1,11 @@
 package server
 
 import akka.actor.ActorSystem
-import akka.http.Http
-import akka.http.client.RequestBuilding.Get
-import akka.http.model.{HttpRequest, HttpResponse, StatusCodes}
-import akka.http.server.Route
-import akka.http.unmarshalling.Unmarshal
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.client.RequestBuilding.Get
+import akka.http.scaladsl.model.{HttpRequest, HttpResponse, StatusCodes}
+import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorFlowMaterializer
 import akka.stream.scaladsl.{Sink, Source}
 import com.ketilovre.config.{ServerHostConfig, ServerPortConfig}

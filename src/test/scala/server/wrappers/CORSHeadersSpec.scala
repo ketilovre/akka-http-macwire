@@ -1,8 +1,8 @@
 package server.wrappers
 
-import akka.http.model.headers._
-import akka.http.model.{HttpMethods, StatusCodes}
-import akka.http.server.Directives._
+import akka.http.scaladsl.model.headers.{RawHeader, `Access-Control-Request-Headers`, `Access-Control-Request-Method`}
+import akka.http.scaladsl.model.{HttpMethods, StatusCodes}
+import akka.http.scaladsl.server.Directives._
 import com.ketilovre.server.wrappers.CORSHeaders
 import helpers.RouteSpec
 
@@ -27,9 +27,9 @@ class CORSHeadersSpec extends RouteSpec {
 
       Options("/") ~> route ~> check {
         response.headers must containAllOf(Seq(
-          `Access-Control-Allow-Origin`.apply(HttpOriginRange.*),
-          `Access-Control-Allow-Credentials`(allow = true),
-          `Access-Control-Max-Age`(3600)
+          RawHeader("Access-Control-Allow-Origin", "*"),
+          RawHeader("Access-Control-Allow-Credentials", "true"),
+          RawHeader("Access-Control-Max-Age", "3600")
         ))
       }
     }
@@ -64,8 +64,8 @@ class CORSHeadersSpec extends RouteSpec {
       Get("/") ~> route ~> check {
         response.status mustEqual StatusCodes.OK
         response.headers must containAllOf(Seq(
-          `Access-Control-Allow-Origin`.apply(HttpOriginRange.*),
-          `Access-Control-Allow-Credentials`(allow = true)
+          RawHeader("Access-Control-Allow-Origin", "*"),
+          RawHeader("Access-Control-Allow-Credentials", "true")
         ))
       }
     }

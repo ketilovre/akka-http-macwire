@@ -1,6 +1,6 @@
 package helpers
 
-import akka.http.testkit.RouteTest
+import akka.http.scaladsl.testkit.RouteTest
 import org.scalacheck.{Arbitrary, Gen}
 import org.specs2.ScalaCheck
 import org.specs2.mock.Mockito

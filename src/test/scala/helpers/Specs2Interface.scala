@@ -1,6 +1,6 @@
 package helpers
 
-import akka.http.testkit.TestFrameworkInterface
+import akka.http.scaladsl.testkit.TestFrameworkInterface
 import org.specs2.execute.{Failure, FailureException}
 import org.specs2.mutable.Specification
 import org.specs2.specification.AfterAll

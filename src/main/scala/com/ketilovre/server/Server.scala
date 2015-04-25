@@ -1,8 +1,8 @@
 package com.ketilovre.server
 
 import akka.actor.ActorSystem
-import akka.http.Http
-import akka.http.Http.ServerBinding
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.Http.ServerBinding
 import akka.stream.ActorFlowMaterializer
 import com.ketilovre.config.{ServerHostConfig, ServerPortConfig}
 import com.softwaremill.macwire.Tagging.@@

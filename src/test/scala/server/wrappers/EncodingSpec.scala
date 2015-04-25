@@ -1,14 +1,13 @@
 package server.wrappers
 
-import akka.http.coding.{Deflate, Encoder, Gzip, NoCoding}
-import akka.http.model.headers.HttpEncodings._
-import akka.http.model.headers.{`Accept-Encoding`, `Content-Encoding`}
-import akka.http.server.Directives._
-import akka.http.server.Route
+import akka.http.scaladsl.coding.{Deflate, Encoder, Gzip, NoCoding}
+import akka.http.scaladsl.model.headers.HttpEncodings._
+import akka.http.scaladsl.model.headers.{`Accept-Encoding`, `Content-Encoding`}
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
 import akka.util.ByteString
 import com.ketilovre.server.wrappers.Encoding
 import helpers.RouteSpec
-
 
 class EncodingSpec extends RouteSpec {
 

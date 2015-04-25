@@ -1,8 +1,8 @@
 package server
 
-import akka.http.model.StatusCodes._
-import akka.http.model.headers._
-import akka.http.server.{Directives, Route}
+import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.model.headers._
+import akka.http.scaladsl.server.{Directives, Route}
 import com.ketilovre.server.{Api, PartialRoute, Wrapper}
 import helpers.RouteSpec
 

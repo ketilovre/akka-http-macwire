@@ -1,6 +1,6 @@
 package server.routes
 
-import akka.http.server.MissingQueryParamRejection
+import akka.http.scaladsl.server.MissingQueryParamRejection
 import com.ketilovre.server.handlers.HelloHandler
 import com.ketilovre.server.routes.HelloRoute
 import helpers.RouteSpec

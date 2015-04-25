@@ -1,9 +1,10 @@
 package com.ketilovre.server
 
 import akka.actor.ActorSystem
-import akka.http.model.{HttpRequest, HttpResponse}
-import akka.http.server.Directives._
-import akka.http.server.{Route, RoutingSettings, RoutingSetup}
+import akka.http.scaladsl.model.StatusCodes.OK
+import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.{Route, RoutingSettings, RoutingSetup}
 import akka.stream.ActorFlowMaterializer
 import akka.stream.scaladsl.Flow
 
@@ -25,7 +26,7 @@ class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper])
   }
 
   private val concatenatedRoutes: Route = partialRoutes match {
-    case Nil     => complete("Please add some routes")
+    case Nil     => complete(OK)
     case x :: xs => xs.foldLeft(x.route) { (builder, partial) =>
       builder ~ partial.route
     }

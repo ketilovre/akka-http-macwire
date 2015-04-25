@@ -1,11 +1,11 @@
 package com.ketilovre.server.wrappers
 
-import akka.http.model.StatusCodes._
-import akka.http.model._
-import akka.http.server.Directives._
-import akka.http.server.RouteResult.{Complete, Rejected}
-import akka.http.server._
-import akka.http.server.directives.LoggingMagnet
+import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.model._
+import akka.http.scaladsl.server.Directives.logRequestResult
+import akka.http.scaladsl.server.RouteResult.{Complete, Rejected}
+import akka.http.scaladsl.server._
+import akka.http.scaladsl.server.directives.LoggingMagnet
 import com.ketilovre.server.Wrapper
 import org.slf4j.LoggerFactory
 
