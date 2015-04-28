@@ -1,9 +1,9 @@
 package com.ketilovre.server.wrappers
 
 import com.ketilovre.server.Wrapper
-import com.softwaremill.macwire.Macwire
+import com.softwaremill.macwire.wire
 
-trait WrapperModule extends Macwire {
+trait WrapperModule {
 
   lazy val wrappers: Seq[Wrapper] = Seq(
     accessLogWrapper,
