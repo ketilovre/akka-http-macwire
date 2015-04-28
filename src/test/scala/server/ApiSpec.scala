@@ -3,14 +3,18 @@ package server
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers._
 import akka.http.scaladsl.server.{Directives, Route}
+import com.ketilovre.config.ApiParallelismConfig
 import com.ketilovre.server.{Api, PartialRoute, Wrapper}
+import com.softwaremill.macwire.Tagging._
 import helpers.RouteSpec
 
 class ApiSpec extends RouteSpec {
 
+  val para = 1.taggedWith[ApiParallelismConfig]
+
   "a default wrapper and route should be inserted if one or neither is defined" in {
 
-    val api = new Api(Seq.empty, Seq.empty)
+    val api = new Api(Seq.empty, Seq.empty, para)
 
     Get("/") ~> api.route ~> check {
       status mustEqual OK
@@ -30,7 +34,7 @@ class ApiSpec extends RouteSpec {
         }
       }
 
-      val api = new Api(Seq(SingleRoute), Seq.empty)
+      val api = new Api(Seq(SingleRoute), Seq.empty, para)
 
       Get("/single") ~> api.route ~> check {
         status mustEqual OK
@@ -57,8 +61,8 @@ class ApiSpec extends RouteSpec {
         }
       }
 
-      val successApi = new Api(Seq(SuccessRoute, FailureRoute), Seq.empty)
-      val failureApi = new Api(Seq(FailureRoute, SuccessRoute), Seq.empty)
+      val successApi = new Api(Seq(SuccessRoute, FailureRoute), Seq.empty, para)
+      val failureApi = new Api(Seq(FailureRoute, SuccessRoute), Seq.empty, para)
 
       Get("/multiple") ~> successApi.route ~> check {
         status mustEqual OK
@@ -82,7 +86,7 @@ class ApiSpec extends RouteSpec {
         }
       }
 
-      val api = new Api(Seq.empty, Seq(SingleWrapper))
+      val api = new Api(Seq.empty, Seq(SingleWrapper), para)
 
       Get("/") ~> api.route ~> check {
         status mustEqual OK
@@ -108,8 +112,8 @@ class ApiSpec extends RouteSpec {
         }
       }
 
-      val ascendingApi = new Api(Seq.empty, Seq(FirstWrapper, SecondWrapper))
-      val descendingApi = new Api(Seq.empty, Seq(SecondWrapper, FirstWrapper))
+      val ascendingApi = new Api(Seq.empty, Seq(FirstWrapper, SecondWrapper), para)
+      val descendingApi = new Api(Seq.empty, Seq(SecondWrapper, FirstWrapper), para)
 
       Get("/") ~> ascendingApi.route ~> check {
         status mustEqual OK
