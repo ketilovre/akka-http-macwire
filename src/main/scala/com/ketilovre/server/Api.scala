@@ -7,21 +7,22 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{Route, RoutingSettings, RoutingSetup}
 import akka.stream.ActorFlowMaterializer
 import akka.stream.scaladsl.Flow
+import com.ketilovre.config.ApiParallelismConfig
+import com.softwaremill.macwire.Tagging.@@
 
 import scala.concurrent.ExecutionContext
 
-class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper])
+class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper], parallelism: Int @@ ApiParallelismConfig)
          (implicit sys: ActorSystem, mat: ActorFlowMaterializer, ec: ExecutionContext) {
 
   implicit private val routingSettings = RoutingSettings.default
 
   implicit private val routingSetup: RoutingSetup = RoutingSetup.apply
 
-  lazy val routeFlow: Flow[HttpRequest, HttpResponse, Unit] = Route.handlerFlow(route)
-
-  lazy val route: Route = {
-    concatenatedWrappers {
-      concatenatedRoutes
+  private val concatenatedWrappers: Route => Route = wrappers match {
+    case Nil     => Route.apply
+    case x :: xs => xs.foldLeft(x.wrap _) { (builder, wrapper) =>
+      builder.compose(wrapper.wrap)
     }
   }
 
@@ -32,10 +33,13 @@ class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper])
     }
   }
 
-  private val concatenatedWrappers: Route => Route = wrappers match {
-    case Nil     => Route.apply
-    case x :: xs => xs.foldLeft(x.wrap _) { (builder, wrapper) =>
-      builder.compose(wrapper.wrap)
+  val route: Route = {
+    concatenatedWrappers {
+      concatenatedRoutes
     }
+  }
+
+  val routeFlow: Flow[HttpRequest, HttpResponse, Unit] = {
+    Flow[HttpRequest].mapAsync(parallelism, Route.asyncHandler(route))
   }
 }

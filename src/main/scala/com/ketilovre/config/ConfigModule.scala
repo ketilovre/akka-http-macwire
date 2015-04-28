@@ -1,10 +1,9 @@
 package com.ketilovre.config
 
-import com.softwaremill.macwire.Macwire
 import com.softwaremill.macwire.Tagging._
 import com.typesafe.config.ConfigFactory
 
-trait ConfigModule extends Macwire {
+trait ConfigModule {
 
   private val config = ConfigFactory.load()
 
@@ -14,5 +13,9 @@ trait ConfigModule extends Macwire {
 
   lazy val serverPortConfig: Int @@ ServerPortConfig = {
     config.getInt("server.port").taggedWith[ServerPortConfig]
+  }
+
+  lazy val apiParallelismConfig: Int @@ ApiParallelismConfig = {
+    config.getInt("server.api.parallelism").taggedWith[ApiParallelismConfig]
   }
 }
