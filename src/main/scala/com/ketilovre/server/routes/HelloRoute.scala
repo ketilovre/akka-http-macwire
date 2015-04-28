@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 
 class HelloRoute(helloHandler: HelloHandler)(implicit ec: ExecutionContext) extends PartialRoute {
 
-  def route: Route = {
+  val route: Route = {
     get {
       path("") {
         parameter("name") { name =>

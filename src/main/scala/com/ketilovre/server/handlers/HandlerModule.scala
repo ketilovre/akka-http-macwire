@@ -1,9 +1,11 @@
 package com.ketilovre.server.handlers
 
-import com.softwaremill.macwire.Macwire
+import com.softwaremill.macwire.wire
 
-trait HandlerModule extends Macwire {
+trait HandlerModule {
 
   lazy val helloHandler: HelloHandler = wire[HelloHandler]
+
+  lazy val socketHandler: SocketHandler = wire[SocketHandler]
 
 }
