@@ -40,6 +40,6 @@ class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper], parallelism:
   }
 
   val routeFlow: Flow[HttpRequest, HttpResponse, Unit] = {
-    Flow[HttpRequest].mapAsync(parallelism, Route.asyncHandler(route))
+    Flow[HttpRequest].mapAsync(parallelism)(Route.asyncHandler(route))
   }
 }

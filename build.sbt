@@ -22,7 +22,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= {
   val akkaV = "2.3.10"
-  val akkaHttpV = "1.0-RC1"
+  val akkaHttpV = "1.0-RC2"
   val macwireV = "1.0.1"
   val specs2V = "3.4"
   Seq(
