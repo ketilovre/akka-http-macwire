@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext
 
 trait AkkaModule {
 
-  implicit val system: ActorSystem = ActorSystem("akka-http-macwire")
+  implicit val system: ActorSystem = ActorSystem()
 
   implicit val dispatcher: ExecutionContext = system.dispatcher
 
