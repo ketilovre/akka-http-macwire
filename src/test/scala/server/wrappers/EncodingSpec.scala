@@ -7,9 +7,9 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.util.ByteString
 import com.ketilovre.server.wrappers.Encoding
-import helpers.RouteSpec
+import helpers.{BaseSpec, RouteSpec}
 
-class EncodingSpec extends RouteSpec {
+class EncodingSpec extends BaseSpec with RouteSpec {
 
   val encoding = new Encoding()
 
@@ -42,7 +42,7 @@ class EncodingSpec extends RouteSpec {
         }
     }
 
-    "leave identity alone" in prop { str: String =>
+    "not alter unencoded requests" in prop { str: String =>
 
       Post("/", compress(str, NoCoding)) ~> `Content-Encoding`(identity) ~> `Accept-Encoding`(identity) ~>
         route ~> check {
@@ -66,7 +66,7 @@ class EncodingSpec extends RouteSpec {
       }
     }
 
-    "leave identity alone" in prop { str: String =>
+    "not encode responses if not requested" in prop { str: String =>
       Post("/", str) ~> `Accept-Encoding`(identity) ~> route ~> check {
         entityAs[String] mustEqual str
       }
