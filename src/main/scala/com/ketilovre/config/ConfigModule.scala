@@ -14,8 +14,4 @@ trait ConfigModule {
   lazy val serverPortConfig: Int @@ ServerPortConfig = {
     config.getInt("server.port").taggedWith[ServerPortConfig]
   }
-
-  lazy val apiParallelismConfig: Int @@ ApiParallelismConfig = {
-    config.getInt("server.api.parallelism").taggedWith[ApiParallelismConfig]
-  }
 }

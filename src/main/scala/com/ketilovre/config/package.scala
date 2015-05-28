@@ -6,6 +6,4 @@ package object config {
 
   trait ServerPortConfig
 
-  trait ApiParallelismConfig
-
 }
