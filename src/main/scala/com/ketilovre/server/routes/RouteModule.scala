@@ -11,12 +11,8 @@ trait RouteModule extends HandlerModule {
   def dispatcher: ExecutionContext
 
   lazy val routes: Seq[PartialRoute] = Seq(
-    helloRoute,
-    socketRoute
+    wire[GreetRoute],
+    wire[StreamingRoute],
+    wire[SocketRoute]
   )
-
-  lazy val helloRoute: HelloRoute = wire[HelloRoute]
-
-  lazy val socketRoute: SocketRoute = wire[SocketRoute]
-
 }
