@@ -6,17 +6,9 @@ import com.softwaremill.macwire.wire
 trait WrapperModule {
 
   lazy val wrappers: Seq[Wrapper] = Seq(
-    accessLogWrapper,
-    encodingWrapper,
-    corsWrapper,
-    securityWrapper
+    wire[AccessLog],
+    wire[Encoding],
+    wire[CorsHeaders],
+    wire[SecurityHeaders]
   )
-
-  lazy val accessLogWrapper: AccessLog = wire[AccessLog]
-
-  lazy val encodingWrapper: Encoding = wire[Encoding]
-
-  lazy val corsWrapper: CORSHeaders = wire[CORSHeaders]
-
-  lazy val securityWrapper: SecurityHeaders = wire[SecurityHeaders]
 }

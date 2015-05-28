@@ -45,6 +45,6 @@ class AccessLog extends Wrapper {
 
   private def message(start: Long, status: StatusCode, method: HttpMethod, uri: Uri): String = {
     val duration = System.currentTimeMillis() - start
-    s""" "${method.name} ${uri.toRelative}" ${status.intValue()} ${duration}ms """.trim
+    s"'${method.name} ${uri.toRelative}' ${status.intValue()} ${duration}ms"
   }
 }
