@@ -1,6 +1,6 @@
 package com.ketilovre.server.handlers
 
-class HelloHandler {
+class GreetHandler {
 
   def hello(name: String): String = s"Hello $name!"
 
