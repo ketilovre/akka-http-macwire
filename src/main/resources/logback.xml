@@ -21,11 +21,18 @@
 
         <encoder>
             <pattern>%date %msg%n</pattern>
+            <immediateFlush>false</immediateFlush>
         </encoder>
     </appender>
 
+    <appender name="ACCESS_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="ACCESS" />
+    </appender>
+
     <logger name="access" level="INFO" additivity="false">
-        <appender-ref ref="ACCESS"/>
+        <appender-ref ref="ACCESS_ASYNC"/>
     </logger>
 
     <logger name="akka" level="INFO" additivity="false">
