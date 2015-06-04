@@ -17,7 +17,7 @@ object StreamMarshaller {
    * encoding flow.
    */
   def apply[A](mediaType: MediaType, charset: HttpCharset)
-                   (encodingFlow: Flow[A, ByteString, Unit]): ToResponseMarshaller[Source[A, Unit]] = {
+              (encodingFlow: Flow[A, ByteString, Unit]): ToResponseMarshaller[Source[A, Unit]] = {
     Marshaller.withFixedCharset(mediaType, charset) { source =>
       HttpResponse(entity = HttpEntity.Chunked.fromData(mediaType, source.via(encodingFlow)))
     }
