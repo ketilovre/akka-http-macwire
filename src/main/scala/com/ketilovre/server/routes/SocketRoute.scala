@@ -1,7 +1,6 @@
 package com.ketilovre.server.routes
 
 import akka.http.scaladsl.server.Route
-import com.ketilovre.server.PartialRoute
 import com.ketilovre.server.handlers.SocketHandler
 
 class SocketRoute(handler: SocketHandler) extends PartialRoute {

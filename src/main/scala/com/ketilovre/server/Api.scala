@@ -6,6 +6,8 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{Route, RoutingSettings, RoutingSetup}
 import akka.stream.ActorFlowMaterializer
 import akka.stream.scaladsl.Flow
+import com.ketilovre.server.routes.PartialRoute
+import com.ketilovre.server.wrappers.Wrapper
 
 import scala.concurrent.ExecutionContext
 

@@ -4,7 +4,6 @@ import akka.http.scaladsl.model.StatusCodes.OK
 import akka.http.scaladsl.model.headers.RawHeader
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import com.ketilovre.server.Wrapper
 
 class CorsHeaders extends Wrapper {
 

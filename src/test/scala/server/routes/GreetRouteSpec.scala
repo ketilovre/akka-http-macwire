@@ -1,5 +1,7 @@
 package server.routes
 
+import akka.http.scaladsl.model.StatusCodes.{NotFound, OK}
+import akka.http.scaladsl.server.Route
 import com.ketilovre.server.handlers.GreetHandler
 import com.ketilovre.server.routes.GreetRoute
 import helpers.{BaseSpec, RouteSpec}
@@ -8,14 +10,14 @@ class GreetRouteSpec extends BaseSpec with RouteSpec {
 
   val handler = mock[GreetHandler]
 
-  val route = new GreetRoute(handler).route
+  val route = Route.seal(new GreetRoute(handler).route)
 
   "HelloRoute" should {
 
     "reject if the name parameter is missing" in {
 
       Get("/greet") ~> route ~> check {
-        rejections mustEqual Nil
+        status mustEqual NotFound
       }
     }
 
@@ -25,8 +27,9 @@ class GreetRouteSpec extends BaseSpec with RouteSpec {
 
       Get(s"/greet/$name") ~> route ~> check {
         if (name.isEmpty) {
-          rejections mustEqual Nil
+          status mustEqual NotFound
         } else {
+          status mustEqual OK
           entityAs[String] mustEqual name
         }
       }

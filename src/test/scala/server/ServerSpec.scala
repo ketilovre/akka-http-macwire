@@ -7,7 +7,8 @@ import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.scaladsl.{Sink, Source}
 import com.ketilovre.config.{ServerHostConfig, ServerPortConfig}
-import com.ketilovre.server.{Api, PartialRoute, Server}
+import com.ketilovre.server.routes.PartialRoute
+import com.ketilovre.server.{Api, Server}
 import com.softwaremill.macwire.Tagging._
 import helpers.{AkkaSpec, BaseSpec}
 

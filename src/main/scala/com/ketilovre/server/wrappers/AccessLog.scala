@@ -6,7 +6,6 @@ import akka.http.scaladsl.server.Directives.logRequestResult
 import akka.http.scaladsl.server.RouteResult.{Complete, Rejected}
 import akka.http.scaladsl.server._
 import akka.http.scaladsl.server.directives.LoggingMagnet
-import com.ketilovre.server.Wrapper
 import org.slf4j.LoggerFactory
 
 class AccessLog extends Wrapper {

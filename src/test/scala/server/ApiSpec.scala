@@ -3,7 +3,9 @@ package server
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers._
 import akka.http.scaladsl.server.{Directives, Route}
-import com.ketilovre.server.{Api, PartialRoute, Wrapper}
+import com.ketilovre.server.Api
+import com.ketilovre.server.routes.PartialRoute
+import com.ketilovre.server.wrappers.Wrapper
 import helpers.{BaseSpec, RouteSpec}
 
 class ApiSpec extends BaseSpec with RouteSpec {

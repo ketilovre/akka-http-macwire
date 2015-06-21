@@ -21,7 +21,7 @@ class CorsHeadersSpec extends BaseSpec with RouteSpec {
         val errorRoute = cors.wrap(complete(StatusCodes.InternalServerError))
 
         Options("/") ~> errorRoute ~> check {
-          response.status mustEqual StatusCodes.OK
+          status mustEqual StatusCodes.OK
         }
       }
 

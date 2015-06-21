@@ -1,7 +1,11 @@
 package com.ketilovre.server.wrappers
 
-import com.ketilovre.server.Wrapper
+import akka.http.scaladsl.server.Route
 import com.softwaremill.macwire.wire
+
+trait Wrapper {
+  def wrap(route: Route): Route
+}
 
 trait WrapperModule {
 

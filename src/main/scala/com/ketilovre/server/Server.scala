@@ -25,7 +25,7 @@ class Server(api: Api, host: String @@ ServerHostConfig, port: Int @@ ServerPort
   }
 
   def beforeStop(binding: ServerBinding): Unit = {
-    Await.result[Unit]({
+    Await.ready({
       binding.unbind().map { _ =>
         ac.shutdown()
         ac.awaitTermination()
