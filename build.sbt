@@ -51,4 +51,8 @@ compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).
 
 (test in Test) <<= (test in Test) dependsOn compileScalastyle
 
-wartremoverErrors in (Compile, compile) ++= Warts.unsafe
+wartremoverErrors in (Compile, compile) ++= Warts.allBut(
+  Wart.DefaultArguments,
+  Wart.NoNeedForMonad,
+  Wart.NonUnitStatements
+)
