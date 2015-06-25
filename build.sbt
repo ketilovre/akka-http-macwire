@@ -2,7 +2,7 @@ name := "akka-http-macwire"
 
 version := "1.0"
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
 scalacOptions ++= Seq(
   "-unchecked",
@@ -22,7 +22,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= {
   val akkaV = "2.3.11"
-  val akkaHttpV = "1.0-RC3"
+  val akkaHttpV = "1.0-RC4"
   val macwireV = "1.0.1"
   val specs2V = "3.4"
   Seq(

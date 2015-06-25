@@ -3,7 +3,7 @@ package com.ketilovre.server
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.ServerBinding
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import com.ketilovre.config.{ServerHostConfig, ServerPortConfig}
 import com.softwaremill.macwire.Tagging.@@
 import org.slf4j.LoggerFactory
@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 
 class Server(api: Api, host: String @@ ServerHostConfig, port: Int @@ ServerPortConfig)
-            (implicit ac: ActorSystem, afm: ActorFlowMaterializer, ec: ExecutionContext) {
+            (implicit ac: ActorSystem, afm: ActorMaterializer, ec: ExecutionContext) {
 
   private val logger = LoggerFactory.getLogger("server")
 

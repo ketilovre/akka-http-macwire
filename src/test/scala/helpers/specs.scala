@@ -2,7 +2,7 @@ package helpers
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.testkit.RouteTest
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import org.scalacheck.{Arbitrary, Gen}
 import org.specs2.ScalaCheck
 import org.specs2.mock.Mockito
@@ -18,7 +18,7 @@ trait AkkaSpec extends AfterAll {
 
   implicit val dispatcher = system.dispatcher
 
-  implicit val materializer = ActorFlowMaterializer()
+  implicit val materializer = ActorMaterializer()
 
   def afterAll(): Unit = {
     system.shutdown()

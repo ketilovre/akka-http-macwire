@@ -1,7 +1,7 @@
 package com.ketilovre.akka
 
 import akka.actor.ActorSystem
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 
 import scala.concurrent.ExecutionContext
 
@@ -11,6 +11,6 @@ trait AkkaModule {
 
   implicit val dispatcher: ExecutionContext = system.dispatcher
 
-  implicit val materializer: ActorFlowMaterializer = ActorFlowMaterializer()
+  implicit val materializer: ActorMaterializer = ActorMaterializer()
 
 }

@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{Route, RoutingSettings, RoutingSetup}
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Flow
 import com.ketilovre.server.routes.PartialRoute
 import com.ketilovre.server.wrappers.Wrapper
@@ -12,7 +12,7 @@ import com.ketilovre.server.wrappers.Wrapper
 import scala.concurrent.ExecutionContext
 
 class Api(partialRoutes: Seq[PartialRoute], wrappers: Seq[Wrapper])
-         (implicit sys: ActorSystem, mat: ActorFlowMaterializer, ec: ExecutionContext) {
+         (implicit sys: ActorSystem, mat: ActorMaterializer, ec: ExecutionContext) {
 
   implicit private val routingSettings = RoutingSettings.default
 

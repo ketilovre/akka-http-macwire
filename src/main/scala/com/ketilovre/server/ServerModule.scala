@@ -1,7 +1,7 @@
 package com.ketilovre.server
 
 import akka.actor.ActorSystem
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import com.ketilovre.config.ConfigModule
 import com.ketilovre.server.routes.RouteModule
 import com.ketilovre.server.wrappers.WrapperModule
@@ -15,7 +15,7 @@ trait ServerModule extends RouteModule with WrapperModule with ConfigModule {
 
   def dispatcher: ExecutionContext
 
-  def materializer: ActorFlowMaterializer
+  def materializer: ActorMaterializer
 
   lazy val server: Server = wire[Server]
 
